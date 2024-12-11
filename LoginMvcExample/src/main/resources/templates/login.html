@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form th:action="@{/login}" method="get">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required/>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required/>
+      </div>
+      <p th:text="${loginMessage} ?: ''"></p>
+      <div th:if="${isCaptcha}">
+        <p>Enter text from the image</p>
+        <img th:src="'/img/captcha/cap_' + ${captchaNum} + '.png'" alt="captcha"><br>
+        <label for="captcha">Text:</label>
+        <input type="text" id="captcha" name="captcha" required/>
+      </div>
+      <div>
+        <button type="submit" name="Login" value="Login">Login</button>
+      </div>
+    </form>
+  </body>
+</html>
