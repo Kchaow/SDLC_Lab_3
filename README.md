@@ -124,3 +124,19 @@ if( isset( $_GET[ 'Login' ] ) ) {
 
 3. Разработать свою систему авторизации на любом языке, исключающий взможность подбора паролей разработнным переборщиком паролей в задании 1. Система авторизации должна использовать запросы GET с параметрами, аналогичными из задания bruteforce dvwa.
 
+Разработаем систему авторизации с использованием Java Spring MVC. Конфигурация Spring Security выглядит следующим образом
+```Java
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/img/**").permitAll()
+                .anyRequest().authenticated())
+            .formLogin(customizer -> customizer
+                .loginPage("/login")
+                .permitAll())
+            .csrf(AbstractHttpConfigurer::disable)
+            .build();
+    }
+```
